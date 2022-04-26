@@ -1,17 +1,27 @@
+import dayjs from 'dayjs';
 import { NextApiHandler } from 'next'
 
 import { getLatest } from '../../../core/services/getLatest'
+import { getLotto } from '../../../core/services/getLotto';
 
 const api: NextApiHandler = async (_req, res) => {
+  console.log("[api/v1/latest.ts] getLatest()")
   try {
     const latestLotteryId = await getLatest()
 
-    const fetchedLotto = await fetch(`https://lotto.api.rayriffy.com/api/v1/lotto/${latestLotteryId}`).then(o => o.json())
+    const lotto = await getLotto(latestLotteryId)
 
-    res.setHeader('Cache-Control', 's-maxage=300')
+    const lotteryDate = dayjs(lotto.date, 'D MMMM YYYY', 'th')
+
+    if (lotteryDate.isAfter(dayjs().subtract(2, 'days'))) {
+      res.setHeader('Cache-Control', 's-maxage=300')
+    } else {
+      res.setHeader('Cache-Control', 's-maxage=3600')
+    }
+
     res.setHeader('Access-Control-Allow-Origin', '*')
 
-    return res.send(fetchedLotto)
+    return res.send(lotto)
   } catch (e) {
     console.error(e)
     return res.status(400).send({

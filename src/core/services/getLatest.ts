@@ -16,7 +16,7 @@ export const getLatest = async () => {
 
     await page.close()
     await browser.close()
-  
+
     return targetId.split('/')[5]
   } catch {
     const targetSelector = 'body > div.section.section--highlight.highlight-horo > div > div > div > div.lotto-highlight > div > div.lotto-check__btn-group.flex-box > div > a'
@@ -24,7 +24,7 @@ export const getLatest = async () => {
 
     await page.close()
     await browser.close()
-  
+
     return targetId.split('/')[5]
   }
 }
