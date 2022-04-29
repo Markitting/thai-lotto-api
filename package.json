@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
+    "export": "yarn build && next export && mv out _static"
   },
   "dependencies": {
     "bufferutil": "^4.0.6",
