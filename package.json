@@ -6,7 +6,8 @@
   "author": "Phumrapee Limpianchop <git@rayriffy.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "next"
+    "dev": "next",
+    "start": "next start"
   },
   "dependencies": {
     "chrome-aws-lambda": "^10.0.0",
