@@ -2,14 +2,14 @@ import dayjs from 'dayjs';
 import { NextApiHandler } from 'next'
 
 import { getLatest } from '../../../core/services/getLatest'
-import { getLotto } from '../../../core/services/getLotto';
+import getLotteries from '../../../core/services/lotteries';
 
 const api: NextApiHandler = async (_req, res) => {
   console.log("[api/v1/latest.ts] getLatest()")
   try {
     const latestLotteryId = await getLatest()
 
-    const lotto = await getLotto(latestLotteryId)
+    const lotto = await getLotteries(latestLotteryId)
 
     const lotteryDate = dayjs(lotto.date, 'D MMMM YYYY', 'th')
 

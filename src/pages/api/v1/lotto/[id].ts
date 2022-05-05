@@ -1,11 +1,9 @@
 import { NextApiHandler } from 'next'
-
-import { getLotto } from '../../../../core/services/getLotto'
-
 import dayjs from 'dayjs'
 import 'dayjs/locale/th'
-
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+
+import getLotteries from '../../../../core/services/lotteries';
 
 dayjs.extend(customParseFormat)
 
@@ -19,7 +17,7 @@ const api: NextApiHandler = async (req, res) => {
         response: 'invalid positive integer'
       })
     } else {
-      const lotto = await getLotto(id as string)
+      const lotto = await getLotteries(id as string)
 
       const lottoeryDate = dayjs(lotto.date, 'D MMMM YYYY', 'th')
 
